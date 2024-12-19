@@ -3,6 +3,7 @@ import express from 'express';
 import tasksRouter from './api/tasks';
 import './db';
 import usersRouter from './api/users';
+import cors from 'cors';
 
 
 dotenv.config();
@@ -30,6 +31,9 @@ app.use('/api/tasks', tasksRouter);
 app.use('/api/users', usersRouter);
 
 app.use(errHandler);
+
+// Enable CORS for all requests
+app.use(cors());
 
 // 启动服务器
 app.listen(port, () => {
