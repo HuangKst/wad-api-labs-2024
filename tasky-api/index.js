@@ -21,6 +21,9 @@ const app = express();
 
 const port = process.env.PORT;
 
+// Enable CORS for all requests
+app.use(cors());
+
 // 添加 JSON 解析中间件
 app.use(express.json());
 
@@ -32,8 +35,7 @@ app.use('/api/users', usersRouter);
 
 app.use(errHandler);
 
-// Enable CORS for all requests
-app.use(cors());
+
 
 // 启动服务器
 app.listen(port, () => {

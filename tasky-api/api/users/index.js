@@ -12,11 +12,21 @@ router.get('/', async (req, res) => {
 // register(Create)/Authenticate User
 router.post('/', async (req, res) => {
     if (req.query.action === 'register') {  //if action is 'register' then save to DB
-        await User(req.body).save();
-        res.status(201).json({
-            code: 201,
-            msg: 'Successful created new user.',
-        });
+        try {
+            const user = new User(req.body);
+            await user.save();
+            res.status(201).json({
+                code: 201,
+                msg: 'Successfully created new user.',
+            });
+        } catch (error) {
+            // 捕获 Mongoose 抛出的错误并返回 400 状态码
+            res.status(400).json({
+                code: 400,
+                msg: 'Bad Request. User registration failed.',
+                error: error.message, // 返回错误信息，方便调试
+            });
+        }
     }
     else {  //Must be an authenticate then!!! Query the DB and check if there's a match
         const user = await User.findOne(req.body);
