@@ -18,7 +18,7 @@ async function main() {
     await User.create(users);
     await Movie.create(movies);
     console.log('Database initialised');
-    console.log(`${users.length} users loaded`);
+    console.log(`${users.length} users loaded`); 
     console.log(`${movies.length} movies loaded`);
     await mongoose.disconnect();
 }
